@@ -3,14 +3,12 @@
 		<el-header class="header">
 			<div class="flex justify-between">
 				<div class="flex">
-					<router-link to="/" class="menu-item cursor-pointer"
-						>首页</router-link
-					>
-					<router-link to="/about" class="menu-item cursor-pointer"
-						>关于</router-link
-					>
-					<router-link to="/child" class="menu-item cursor-pointer"
-						>child</router-link
+					<router-link
+						v-for="menu in headerMenus"
+						:key="menu.path"
+						:to="menu.path"
+						class="menu-item cursor-pointer"
+						>{{ menu.title }}</router-link
 					>
 				</div>
 				<div class="states" v-show="userName">欢迎👏 {{ userName }}</div>
@@ -25,13 +23,37 @@
 		</el-main>
 	</el-container>
 </template>
-<script>
-import { mapGetters } from "vuex";
-export default {
-	computed: {
-		...mapGetters(["userName"])
+<script setup>
+/*
+ * import { mapGetters } from "vuex";
+ * export default {
+ *  computed: {
+ *    ...mapGetters(["userName"]),
+ *  },
+ * };
+ */
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+// 从store中获取userName
+const userName = computed(() => store.getters.userName);
+// 菜单栏变量
+const headerMenus = ref([
+	{
+		title: "首页",
+		path: "/"
+	},
+	{
+		title: "关于",
+		path: "/about"
+	},
+	{
+		title: "child",
+		path: "/child"
 	}
-};
+]);
+// 添加菜单
+// headerMenus.value.push()
 </script>
 <style scoped lang="scss">
 .header {

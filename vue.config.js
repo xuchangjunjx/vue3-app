@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
-// const AutoImport = require("unplugin-auto-import/webpack");
-// const Components = require("unplugin-vue-components/webpack");
-// const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+const AutoImport = require("unplugin-auto-import/webpack");
+const Components = require("unplugin-vue-components/webpack");
+const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 module.exports = defineConfig({
 	transpileDependencies: true,
 	css: {
@@ -12,20 +12,20 @@ module.exports = defineConfig({
 		}
 	},
 	chainWebpack: config => {
-		// config.plugin("AutoImport").use(AutoImport, [
-		// 	{
-		// 		resolvers: [ElementPlusResolver()]
-		// 	}
-		// ]);
-		// config.plugin("Components").use(Components, [
-		// 	{
-		// 		resolvers: [ElementPlusResolver()]
-		// 	}
-		// ]);
 		if (process.env.npm_config_report) {
 			config
 				.plugin("webpack-bundle-analyzer")
 				.use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin);
 		}
+	},
+	configureWebpack: {
+		plugins: [
+			AutoImport({
+				resolvers: [ElementPlusResolver()]
+			}),
+			Components({
+				resolvers: [ElementPlusResolver()]
+			})
+		]
 	}
 });

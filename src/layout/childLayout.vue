@@ -1,15 +1,10 @@
 <template>
 	<el-container class="h-full">
 		<el-aside width="200px" class="aside p-12">
-			<div>
-				<router-link to="/child/page1" class="menu-item cursor-pointer"
-					>子路由1</router-link
-				>
-			</div>
-			<div>
-				<router-link to="/child/page2" class="menu-item cursor-pointer"
-					>子路由2</router-link
-				>
+			<div v-for="menu in sideMenus" :key="menu.path">
+				<router-link :to="menu.path" class="menu-item cursor-pointer">{{
+					menu.title
+				}}</router-link>
 			</div>
 		</el-aside>
 		<el-container>
@@ -23,6 +18,19 @@
 		</el-container>
 	</el-container>
 </template>
+<script setup>
+import { ref } from "vue";
+const sideMenus = ref([
+	{
+		title: "子路由1",
+		path: "/child/page1"
+	},
+	{
+		title: "子路由2",
+		path: "/child/page2"
+	}
+]);
+</script>
 <style lang="scss" scoped>
 .aside {
 	border-right: 1px solid rgba(248, 250, 252, 0.06);
