@@ -7,16 +7,18 @@
 <script setup>
 // import HelloWorld from "@/components/HelloWorld.vue";
 // 先获取实例
-import { getCurrentInstance } from "vue";
+import useRoot from "@/utils/root";
+// import { getCurrentInstance } from "vue";
 // 拿到proxy
-const { proxy } = getCurrentInstance();
+// const { proxy } = getCurrentInstance();
+const { $remove } = useRoot();
 const handleDelete = row => {
 	console.log(row);
 };
 const removeConfirm = () => {
-	console.log(proxy);
+	// proxy.$remove
 	// 调用$remove
-	proxy.$remove({
+	$remove({
 		title: "用户",
 		value: "12345",
 		onOk: () => handleDelete(12345)

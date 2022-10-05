@@ -1,21 +1,4 @@
-<template>
-	<div class="about">
-		<div>
-			<CodeEdit
-				:code="code"
-				mode="javascript"
-				:show-type="false"
-				:scrollIntoViews="50"
-				:mark-texts="marks"
-				ref="codeEditor"
-			></CodeEdit>
-		</div>
-	</div>
-</template>
-<script setup>
-import CodeEdit from "@/components/codeEdit/codeEdit.vue";
-import { ref } from "vue";
-let code = ref(`// import "./theme-yaml.less";
+// import "./theme-yaml.less";
 import CodeMirror from "codemirror";
 // import codemirror from "vue-codemirror";
 import "codemirror/lib/codemirror.css";
@@ -95,19 +78,3 @@ export function foldCode(editor, keys = ["managedFields", "status"]) {
 	});
 }
 export default CodeMirror;
-`);
-let codeEditor = ref(null);
-let marks = ref([
-	{
-		startLine: 50,
-		startOffset: 1,
-		endLine: 50,
-		endOffset: 17,
-		title: "abcdefg"
-	}
-]);
-//  获取代码内容
-const getCode = () => {
-	console.log(codeEditor.value.getSource());
-};
-</script>
